@@ -1,0 +1,18 @@
+<!doctype html>
+
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static '/css/style.css' %}">
+
+<html lang="en" class="h-100">
+<head>
+  <meta charset="utf-8">
+    <title>{% block title %}{% endblock %}</title>
+</head>
+
+<body>
+  <header>
+    <a class = "link-menu" href="{% url 'services_url' %}">Главная</a>
+  </header>
+  {% block content %}{% endblock %}
+</body>
+</html>

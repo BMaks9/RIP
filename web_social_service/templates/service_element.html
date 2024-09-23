@@ -1,0 +1,9 @@
+<div class="service">
+  <img src={{element.img}} class="image">
+  <div class="service-title">
+    <p>{{element.title}}</p>
+  </div>
+  <!-- <p class="service-detail">{{element.detail}}</p> -->
+  <a href="{% url 'service_url' element.id %}"><button class="button-detail" type="button">Подробнее</button></a>
+  <!-- <button class="button-order" type="button">ЗАКАЗАТЬ УСЛУГУ</button> -->
+</div>

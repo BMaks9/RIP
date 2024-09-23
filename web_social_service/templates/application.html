@@ -1,0 +1,26 @@
+{% extends 'index.html' %}
+
+{% block title %}Текущая заявка{% endblock %}
+
+{% block content %}
+<p class="headline">Составление заявки №#{{data.id}} </p>
+<div style="display: flex; justify-content: center;">
+    <div class="">
+        {% for service in data.services %}
+            {% include 'application_element.html' with element=service %}
+        {% empty %}
+            <p>Список пуст</p>
+        {% endfor %}
+    </div>
+    <div class="input-data">
+        <div>
+            <p>Телефон</p>
+            <input class= "input-box" type="text" name="" placeholder="  7 ..." value={{data.phone}}>
+        </div>
+        <div style="margin-top: 10px;">
+            <p>Адрес</p>
+            <input class= "input-box" type="text" name="" placeholder="    Город, улица ..." value={{data.address}}>
+        </div>
+    </div>
+</div>
+{% endblock %}

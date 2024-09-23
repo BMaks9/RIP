@@ -1,0 +1,20 @@
+{% extends 'index.html' %}
+
+{% block title %}{{data.title}}{% endblock %}
+
+{% block content %}
+<div style="display: flex; align-items: center;  flex-direction: column;">
+    <div class="top-info">
+        <div>
+        <p class="font-60">{{data.title}}</p>
+        <p class="font-30">для пожилых и маломобильных граждан</p>
+        </div>
+        <img src={{data.img_background}} class="service-background">
+    </div>
+    <div class="bottom-info">
+        <p class="font-40">Что мы делаем?</p>
+        <p class="font-20">{{data.description}}.</p>
+    </div>
+    </div>
+{% endblock %}
+
