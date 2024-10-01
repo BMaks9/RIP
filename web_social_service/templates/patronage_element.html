@@ -1,0 +1,9 @@
+<div class="patronage">
+  <img src={{element.img}} class="image">
+  <div class="patronage-title">
+    <p>{{element.title}}</p>
+  </div>
+  <!-- <p class="patronage-detail">{{element.detail}}</p> -->
+  <a href="{% url 'patronage_url' element.id %}"><button class="button-detail" type="button">Подробнее</button></a>
+  <!-- <button class="button-order" type="button">ЗАКАЗАТЬ УСЛУГУ</button> -->
+</div>

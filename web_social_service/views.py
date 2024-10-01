@@ -1,10 +1,10 @@
 from django.shortcuts import render
 
-data_application = {
+data_disability = {
                 'id': 1,
                 'phone': '79632277696',
                 'address': 'Москва,ул.Уральская,д.10',
-                'services':[{
+                'list_patronage':[{
                     'id' : 1,
                     'title' : 'Ногтевой сервис',
                     'img':'//127.0.0.1:9000/web-service/service1.jpg',
@@ -24,7 +24,7 @@ data_application = {
                 },
                 ],
             }
-data = {'services': [                
+data = {'list_patronage': [                
                 {
                     'id' : 1,
                     'title' : 'Ногтевой сервис',
@@ -83,19 +83,19 @@ data = {'services': [
                 },
             ],
         }
-def GetOrders(request):
-    current_count = len(data_application['services'])
-    if 'serviceName' in request.GET:
-        query = request.GET.get('serviceName')
-        data_temp = [service for service in data['services'] if service['title'].lower().startswith(query.lower())]
-        return render(request, 'services.html', {'data' : {'services': data_temp}, 'id_application': data_application['id'], 'current_count': current_count})
-    return render(request, 'services.html', {'data' : data, 'id_application': data_application['id'], 'current_count': current_count})
+def GetListPatronage(request):
+    current_count = len(data_disability['list_patronage'])
+    if 'patronageName' in request.GET:
+        query = request.GET.get('patronageName')
+        data_temp = [patronage for patronage in data['list_patronage'] if patronage['title'].lower().startswith(query.lower())]
+        return render(request, 'list_patronage.html', {'data' : {'list_patronage': data_temp}, 'id_disability': data_disability['id'], 'current_count': current_count})
+    return render(request, 'list_patronage.html', {'data' : data, 'id_disability': data_disability['id'], 'current_count': current_count})
 
-def GetOrder(request, id):
-    for service in data['services']:
-        if service['id'] == id:
-            data_temp = service
-    return render(request, 'service.html', {'id': id, 'data' : data_temp})
+def GetPatronage(request, id):
+    for patronage in data['list_patronage']:
+        if patronage['id'] == id:
+            data_temp = patronage
+    return render(request, 'patronage.html', {'id': id, 'data' : data_temp})
 
-def GetApplication(request, id):
-    return render(request, 'application.html', {'id': id,  'data': data_application})
+def GetDisability(request, id):
+    return render(request, 'disability.html', {'id': id,  'data': data_disability})

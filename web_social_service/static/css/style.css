@@ -104,7 +104,7 @@ header{
   padding-top: 10px;
   padding-bottom: 10px;
 }
-.service{
+.patronage{
   border-radius: 10px;
   width: 200px;
   height: 320px;
@@ -119,7 +119,7 @@ header{
   box-sizing: border-box;
 
 }
-.service-title{
+.patronage-title{
   width: 200px;
   height: 58px;
 
@@ -132,7 +132,7 @@ header{
   align-items: center;
   text-align: center;
 }
-.service-detail{
+.patronage-detail{
   width: 235px;
   height: 120px;
   font-weight: 400;
@@ -181,10 +181,10 @@ header{
   box-shadow: 2px 3px 5px 0 rgba(0, 0, 0, 0.3);
 
 }
-.image, .button-detail, .service-detail, .service-title{
+.image, .button-detail, .patronage-detail, .patronage-title{
   margin-bottom: 10px;
 }
-.list-services{
+.list-patronage{
   display: grid;
   grid-template-columns: repeat(4, 200px);
   gap: 20px;
@@ -243,13 +243,13 @@ header{
   width: 1169px;
   height: 205px;
 }
-.service-background{
+.patronage-background{
   width: auto;
   height: 340px;
   margin-left: auto;
   z-index: 0;
 }
-.application-service{
+.disability-patronage{
   border-radius: 10px;
   width: 736px;
   height: 137px;
@@ -264,12 +264,12 @@ header{
   margin: 10px;
   padding: 10px;
 }
-#application-img{
+#disability-img{
   width: 105px;
   height: 100px;
   margin-left: auto;
 }
-#application-text{
+#disability-text{
   width: auto;
   height: auto;
   text-align: left;
@@ -280,7 +280,7 @@ header{
   line-height: 120%;
 
 }
-#application-button-detail{
+#disability-button-detail{
   width: 147px;
   height: 41px;
 
@@ -301,24 +301,21 @@ header{
 }
 .input-data{
   border-radius: 6px;
-  width: 313px;
-  height: 158px;
-
-  box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.3);
-  background: #fff;
-
+  width: 736px;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-
-  margin: 10px;
-  
-  
+  margin: 10px 0px 10px 0px;  
 }
 .input-box{
   border: 1px solid rgba(17, 17, 17, 0.35);
   border-radius: 6px;
   width: 251px;
   height: 40px;
+}
+.disability-list{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }

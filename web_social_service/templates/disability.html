@@ -1,0 +1,26 @@
+{% extends 'index.html' %}
+
+{% block title %}Текущая заявка{% endblock %}
+
+{% block content %}
+<p class="headline">Составление заявки №#{{data.id}} </p>
+<div class="disability-list">
+<div class="input-data">
+    <div>
+        <p>Телефон</p>
+        <input class= "input-box" type="text" name="" placeholder="  7 ..." value={{data.phone}}>
+    </div>
+    <div>
+        <p>Адрес</p>
+        <input class= "input-box" type="text" name="" placeholder="    Город, улица ..." value={{data.address}}>
+    </div>
+</div>
+<div class="">
+    {% for patronage in data.list_patronage %}
+        {% include 'disability_element.html' with element=patronage %}
+    {% empty %}
+        <p>Список пуст</p>
+    {% endfor %}
+</div>
+</div>
+{% endblock %}
