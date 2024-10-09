@@ -1,5 +1,6 @@
 from django.shortcuts import render
-
+from web_social_service.models import Patronage
+   
 data_disability = {
                 'id': 1,
                 'phone': '79632277696',
@@ -89,7 +90,7 @@ def GetListPatronage(request):
         query = request.GET.get('patronageName')
         data_temp = [patronage for patronage in data['list_patronage'] if patronage['title'].lower().startswith(query.lower())]
         return render(request, 'list_patronage.html', {'data' : {'list_patronage': data_temp}, 'id_disability': data_disability['id'], 'current_count': current_count})
-    return render(request, 'list_patronage.html', {'data' : data, 'id_disability': data_disability['id'], 'current_count': current_count})
+    return render(request, 'list_patronage.html', {'data' : {'list_patronage': Patronage.objects.all().values()}, 'id_disability': data_disability['id'], 'current_count': current_count})
 
 def GetPatronage(request, id):
     for patronage in data['list_patronage']:

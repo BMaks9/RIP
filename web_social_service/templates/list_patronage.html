@@ -18,7 +18,7 @@
     {% for patronage in data.list_patronage %}
         {% include 'patronage_element.html' with element=patronage %}
     {% empty %}
-        <p>Список пуст</p>
+        <p>{{data}}</p>
     {% endfor %}
     </div>
 {% endblock %}

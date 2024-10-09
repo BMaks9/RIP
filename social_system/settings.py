@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'web_social_service'
 ]
 
 MIDDLEWARE = [
@@ -74,9 +75,13 @@ WSGI_APPLICATION = 'social_system.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'web-social-system', # Имя вашей БД. Если вы создали черезе psql или IDE свою базу и хотите использовать его - пропишите его имя здесь
+        'USER': 'student',
+        'PASSWORD': 'root',
+        'HOST': 'localhost',
+        'PORT': 5432, # Стандартный порт PostgreSQL
     }
 }
 
