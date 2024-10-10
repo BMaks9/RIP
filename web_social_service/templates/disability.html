@@ -3,20 +3,20 @@
 {% block title %}Текущая заявка{% endblock %}
 
 {% block content %}
-<p class="headline">Составление заявки №#{{data.id}} </p>
+<p class="headline">Составление заявки №#{{data.first.disabilities_id.id}} </p>
 <div class="disability-list">
 <div class="input-data">
     <div>
         <p>Телефон</p>
-        <input class= "input-box" type="text" name="" placeholder="  7 ..." value={{data.phone}}>
+        <input class= "input-box" type="text" name="" placeholder="  7 ..." value={{data.first.disabilities_id.phone}}>
     </div>
     <div>
         <p>Адрес</p>
-        <input class= "input-box" type="text" name="" placeholder="    Город, улица ..." value={{data.address}}>
+        <input class= "input-box" type="text" name="" placeholder="    Город, улица ..." value={{data.first.disabilities_id.address}}>
     </div>
 </div>
 <div class="">
-    {% for patronage in data.list_patronage %}
+    {% for patronage in data %}
         {% include 'disability_element.html' with element=patronage %}
     {% empty %}
         <p>Список пуст</p>

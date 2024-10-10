@@ -22,5 +22,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('list-patronage/', views.GetListPatronage, name='list-patronage_url'),
     path('patronage/<int:id>/', views.GetPatronage, name= 'patronage_url'),
-    path('disability/<int:id>/', views.GetDisability, name= 'disability_url'),
+    path('disability/<int:disabiliti_id>/', views.GetDisability, name= 'disability_url'),
 ]

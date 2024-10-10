@@ -1,10 +1,10 @@
 <div class="disability-patronage">
-    <img src={{element.img}} class="image" id="disability-img">
+    <img src={{element.patronage_id.img}} class="image" id="disability-img">
     <div style="height: 81px; width: 300px; margin-inline: auto;">
         <div class="patronage-title" id="disability-text" float: left;>
-            <p>{{element.title}}</p>
+            <p>{{element.patronage_id.title}}</p>
         </div>
-        <a href="{% url 'patronage_url' element.id %}"><button class="button-detail" id="disability-button-detail" type="button">Подробнее</button></a>
+        <a href="{% url 'patronage_url' element.patronage_id.id %}"><button class="button-detail" id="disability-button-detail" type="button">Подробнее</button></a>
     </div>
     <div>
         <p>Коментарий</p>
