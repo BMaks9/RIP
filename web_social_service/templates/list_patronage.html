@@ -6,19 +6,21 @@
     <form action="{% url 'list-patronage_url' %}" method="get" class="search">
         <input class= "input-search" type="text" name="patronageName" placeholder="Поиск услуг" value="">
         <button class="button-search" type="submit">Найти</button>
-        <a href="{% url 'disability_url' id_disability %}"  class="basket">
+        {% if disability %}
+        <a href="{% url 'disability_url' disability.id %}"  class="basket">
             <button class="basket" type="button">
                 <img src="//127.0.0.1:9000/social-system/basket.png" class="basket"> 
                 <p class="basket-num"> {{current_count}} </p> 
             </button>
         </a>
+        {% endif %}
     </form>
     <p class="headline">Услуги нашего центра</p>
     <div class="list-patronage">
-    {% for patronage in data.list_patronage %}
+    {% for patronage in data %}
         {% include 'patronage_element.html' with element=patronage %}
     {% empty %}
-        <p>{{data}}</p>
+        <p>Список пуст</p>
     {% endfor %}
     </div>
 {% endblock %}

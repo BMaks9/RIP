@@ -5,5 +5,8 @@
   </div>
   <!-- <p class="patronage-detail">{{element.detail}}</p> -->
   <a href="{% url 'patronage_url' element.id %}"><button class="button-detail" type="button">Подробнее</button></a>
-  <!-- <button class="button-order" type="button">ЗАКАЗАТЬ УСЛУГУ</button> -->
+  <form action="{% url 'list-patronage_url' %}" method="post">
+    {% csrf_token %}
+    <button class="button-add" type="submit" name="button_add_patronage" value={{element.id}}>ЗАКАЗАТЬ УСЛУГУ</button>
+  </form>
 </div>

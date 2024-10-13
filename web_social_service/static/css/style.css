@@ -107,7 +107,7 @@ header{
 .patronage{
   border-radius: 10px;
   width: 200px;
-  height: 320px;
+  height: 360px;
 
   box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.38);
   background: #fff;
@@ -156,21 +156,21 @@ header{
 .button-detail:active, .button-order:active, .button-search:active{
   transform: scale(0.95);
 }
-.button-order{
+.button-add{
   border-radius: 8px;
   border: none;
-  width: 218px;
-  height: 62px;
+  width: 173px;
+  height: 49px;
   background: linear-gradient(90deg, #a0f26d 25%, #0e6f31 100%);
 
   font-weight: 500;
-  font-size: 20px;
+  font-size: 16px;
   line-height: 100%;
   color: #fff;
 
   box-shadow: 2px 3px 5px 1px rgba(0, 0, 0, 0.3);
 }
-.button-order:hover {
+.button-add:hover {
   background: #0e6f31;
 }
 .image{
@@ -318,4 +318,11 @@ header{
   justify-content: center;
   align-items: center;
   flex-direction: column;
+}
+#button-del{
+  width: 100px;
+  height: 30px;
+  font-size: 14px;
+  font-weight: 400;
+  border: 1px solid rgba(145, 62, 62, 0.35);
 }

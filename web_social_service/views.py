@@ -1,39 +1,43 @@
 from django.shortcuts import render
 from web_social_service.models import Patronage, Disabilities, Disabilities_Patronage
-   
-data_disability = {
-                'id': 1,
-                'phone': '79632277696',
-                'address': 'Москва,ул.Уральская,д.10',
-                'list_patronage':[{
-                    'id' : 1,
-                    'title' : 'Ногтевой сервис',
-                    'img':'//127.0.0.1:9000/social-system/patronage1.jpg',
-                    'comment': 'Заказываю ногтевой сервис для маломобильных родственников. Хочу, чтобы им было комфортно и уютно, как дома.',
-                },
-                {
-                    'id' : 2,
-                    'title' : 'Парикмахерские услуги',
-                    'img':'//127.0.0.1:9000/social-system/patronage2.png',
-                    'comment': 'Хочу немного изменить свой образ и почувствовать себя новой.',
-                },
-                {
-                    'id' : 3,
-                    'title' : 'Купание маломобильных',
-                    'img':'//127.0.0.1:9000/social-system/patronage3.png',
-                    'comment': 'Была бы благодарна, если вы предоставите услуги купания для моей маломобильной бабушки. Это ей очень поможет.',
-                },
-                ],
-            }
+from datetime import date
+from django.db import connection
 
 def GetListPatronage(request):
-    data = Patronage.objects.all().values()
-    current_count = len(data_disability['list_patronage'])
+    data = Patronage.objects.all()
+    
+    if 'del_button' in request.POST:
+        with connection.cursor() as cursor:
+            cursor.execute("UPDATE \"Disabilities\" SET status = 'deleted' WHERE id = %s", [request.POST.get('del_button')])
+    
+    try:
+        data_disability = Disabilities.objects.exclude(status = 'deleted').get(creator=request.user)
+        list_patronage = Disabilities_Patronage.objects.filter(disabilities_id = data_disability)
+        current_count = list_patronage.count()
+
+    except:
+        data_disability = None
+        list_patronage = None
+        current_count = 0
+        
+    if 'button_add_patronage' in request.POST:
+        query = request.POST.get('button_add_patronage')
+        if not(data_disability):
+            data_disability = Disabilities(status='draft', data_created = date.today(), creator=request.user)
+            data_disability.save()
+        try:
+            list_patronage.get(patronage_id = query)
+        except:
+            lst = Disabilities_Patronage(disabilities_id = data_disability, patronage_id = data.get(id = query))
+            lst.save()
+            current_count+=1
+            
     if 'patronageName' in request.GET:
         query = request.GET.get('patronageName')
-        data_temp = [patronage for patronage in data if patronage['title'].lower().startswith(query.lower())]
-        return render(request, 'list_patronage.html', {'data' : {'list_patronage': data_temp}, 'id_disability': data_disability['id'], 'current_count': current_count})
-    return render(request, 'list_patronage.html', {'data' : {'list_patronage': data}, 'id_disability': data_disability['id'], 'current_count': current_count})
+        data_filter = data.filter(title__istartswith = query)
+        return render(request, 'list_patronage.html', {'data' : data_filter, 'disability': data_disability, 'current_count': current_count})
+    
+    return render(request, 'list_patronage.html', {'data' : data, 'disability': data_disability, 'current_count': current_count})
 
 def GetPatronage(request, id):
     data = Patronage.objects.all().values()
@@ -44,5 +48,5 @@ def GetPatronage(request, id):
     return render(request, 'patronage.html', {'id': id, 'data' : data_temp})
 
 def GetDisability(request, disabiliti_id):
-    data = Disabilities_Patronage.objects.filter(disabilities_id = disabiliti_id)
+    data = Disabilities_Patronage.objects.filter(disabilities_id = disabiliti_id).exclude(disabilities_id__status__icontains = 'deleted')
     return render(request, 'disability.html', {'id': disabiliti_id,  'data' : data})
