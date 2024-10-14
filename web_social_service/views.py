@@ -4,7 +4,7 @@ from datetime import date
 from django.db import connection
 
 def GetListPatronage(request):
-    data = Patronage.objects.all()
+    data = Patronage.objects.filter(deleted = 0).all()
     
     if 'del_button' in request.POST:
         with connection.cursor() as cursor:
@@ -34,18 +34,16 @@ def GetListPatronage(request):
             
     if 'patronageName' in request.GET:
         query = request.GET.get('patronageName')
-        data_filter = data.filter(title__istartswith = query)
-        return render(request, 'list_patronage.html', {'data' : data_filter, 'disability': data_disability, 'current_count': current_count})
+        data = data.filter(title__istartswith = query)
     
     return render(request, 'list_patronage.html', {'data' : data, 'disability': data_disability, 'current_count': current_count})
 
 def GetPatronage(request, id):
-    data = Patronage.objects.all().values()
-    for patronage in data:
-        if patronage['id'] == id:
-            data_temp = patronage
-            break
-    return render(request, 'patronage.html', {'id': id, 'data' : data_temp})
+    try:
+        data = Patronage.objects.get(id = id, deleted = 0)
+    except:
+        data = None
+    return render(request, 'patronage.html', {'data' : data})
 
 def GetDisability(request, disabiliti_id):
     data = Disabilities_Patronage.objects.filter(disabilities_id = disabiliti_id).exclude(disabilities_id__status__icontains = 'deleted')

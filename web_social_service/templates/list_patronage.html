@@ -13,6 +13,13 @@
                 <p class="basket-num"> {{current_count}} </p> 
             </button>
         </a>
+        {% else %}
+        <a class="basket">
+            <button class="basket" type="button">
+                <img src="//127.0.0.1:9000/social-system/basket.png" class="basket"> 
+                <p class="basket-num"> {{current_count}} </p> 
+            </button>
+        </a>
         {% endif %}
     </form>
     <p class="headline">Услуги нашего центра</p>

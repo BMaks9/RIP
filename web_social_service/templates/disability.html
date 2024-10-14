@@ -3,6 +3,9 @@
 {% block title %}Текущая заявка{% endblock %}
 
 {% block content %}
+    {% if not data %}
+    <p class="headline">Заявка удалена</p>
+    {% else %}
 <p class="headline">Составление заявки №#{{id}} </p>
 <div class="disability-list">
 <div class="input-data">
@@ -19,7 +22,7 @@
     {% for patronage in data %}
         {% include 'disability_element.html' with element=patronage %}
     {% empty %}
-        <p>Заявка удалена</p>
+        <p>Услуг нет</p>
     {% endfor %}
 </div>
 <form action="{% url 'list-patronage_url' %}" method="post" style="background: none;">
@@ -27,4 +30,5 @@
     <button type="submit" class="button-detail" id="button-del" name="del_button" value={{id}}>Удалить</button>
 </form>
 </div>
+{% endif %}
 {% endblock %}

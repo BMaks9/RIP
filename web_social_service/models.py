@@ -5,8 +5,8 @@ from django.contrib.auth.models import User
 class Patronage(models.Model):
     title = models.CharField(max_length=30, null=False, unique=True)
     description = models.TextField(null=False)
-    img = models.CharField(max_length=80)
-    img_background = models.CharField(max_length=80)
+    img = models.CharField(max_length=80, blank=True)
+    img_background = models.CharField(max_length=80, blank=True)
     deleted = models.BooleanField()
     class Meta:
         managed = True
@@ -21,8 +21,8 @@ class Disabilities(models.Model):
         ('rejected', 'Rejected'),
     ]
     
-    phone = models.CharField(max_length=20)
-    address = models.CharField(max_length=20)
+    phone = models.CharField(max_length=20, blank=True)
+    address = models.CharField(max_length=20, blank=True)
     status = models.CharField(max_length=20, null=False, choices=STATUS_CHOICES)
     data_created = models.DateField(null=False)
     data_compilation = models.DateTimeField(null=True, blank=True)
@@ -32,6 +32,7 @@ class Disabilities(models.Model):
     class Meta:
         managed = True
         db_table = 'Disabilities'
+        
 
 class Disabilities_Patronage(models.Model):
     disabilities_id = models.ForeignKey(Disabilities, on_delete=models.CASCADE)
@@ -40,4 +41,7 @@ class Disabilities_Patronage(models.Model):
     class Meta:
         managed = True
         db_table = 'Disabilities_Patronage'
+        constraints = [
+            models.UniqueConstraint(fields=['disabilities_id', 'patronage_id'], name='name of constraint')
+        ]
     
