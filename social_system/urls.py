@@ -15,12 +15,23 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
 from web_social_service import views
+from django.urls import include, path
+from rest_framework import routers
+
+router = routers.DefaultRouter()
 
 urlpatterns = [
+    path('', include(router.urls)),
+    path(r'patronages/', views.PatronageList.as_view(), name='patronages-list'),
+    path(r'patronages/<int:id>/', views.PatronageDetail.as_view(), name='patronages-detail'),
+    path(r'patronages/draft/', views.PatronageDraft.as_view(), name='patronages-draft'),
+    path(r'patronages/<int:id>/image/', views.PatronageImage.as_view(), name='patronages-image'),
+    
+    path(r'disabilities/', views.DisabilitiesList.as_view(), name='disabilities-list'),
+    path(r'disabilities/<int:id>/', views.DisabilitiesDetail.as_view(), name='disabilities-detail'),
+    path(r'disabilities/<int:id>/submit/', views.DisabilitiesSubmit.as_view(), name='disabilities-submit'),
+    # path(r'stocks/<int:pk>/put/', views.put, name='stocks-put'),
+    # path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('admin/', admin.site.urls),
-    path('list-patronage/', views.GetListPatronage, name='list-patronage_url'),
-    path('patronage/<int:id>/', views.GetPatronage, name= 'patronage_url'),
-    path('disability/<int:disabiliti_id>/', views.GetDisability, name= 'disability_url'),
 ]

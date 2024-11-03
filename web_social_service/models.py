@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 class Patronage(models.Model):
     title = models.CharField(max_length=30, null=False, unique=True)
     description = models.TextField(null=False)
-    img = models.CharField(max_length=80, blank=True)
+    img = models.CharField(max_length=100, blank=True)
     img_background = models.CharField(max_length=80, blank=True)
     deleted = models.BooleanField()
     class Meta:
@@ -37,7 +37,7 @@ class Disabilities(models.Model):
 class Disabilities_Patronage(models.Model):
     disabilities_id = models.ForeignKey(Disabilities, on_delete=models.CASCADE)
     patronage_id = models.ForeignKey(Patronage, on_delete=models.CASCADE)
-    comment = models.TextField()
+    comment = models.TextField(null=True, blank=True)
     class Meta:
         managed = True
         db_table = 'Disabilities_Patronage'
