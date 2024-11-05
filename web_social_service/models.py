@@ -7,7 +7,7 @@ class Patronage(models.Model):
     description = models.TextField(null=False)
     img = models.CharField(max_length=100, blank=True)
     img_background = models.CharField(max_length=80, blank=True)
-    deleted = models.BooleanField()
+    deleted = models.BooleanField(default=False)
     class Meta:
         managed = True
         db_table = 'Patronage'
@@ -22,7 +22,7 @@ class Disabilities(models.Model):
     ]
     
     phone = models.CharField(max_length=20, blank=True)
-    address = models.CharField(max_length=20, blank=True)
+    address = models.CharField(max_length=100, blank=True)
     status = models.CharField(max_length=20, null=False, choices=STATUS_CHOICES)
     data_created = models.DateField(null=False)
     data_compilation = models.DateTimeField(null=True, blank=True)
