@@ -24,11 +24,12 @@ class Disabilities(models.Model):
     phone = models.CharField(max_length=20, blank=True)
     address = models.CharField(max_length=100, blank=True)
     status = models.CharField(max_length=20, null=False, choices=STATUS_CHOICES)
-    data_created = models.DateField(null=False)
+    data_created = models.DateTimeField(null=False)
     data_compilation = models.DateTimeField(null=True, blank=True)
     data_finished = models.DateTimeField(null=True, blank=True)
     creator = models.ForeignKey(User, on_delete=models.CASCADE, related_name='created_requests', null=False)
     moderator = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='moderator_requests')
+    date_dilivery = models.DateField(null=True, blank=True)
     class Meta:
         managed = True
         db_table = 'Disabilities'

@@ -1,7 +1,7 @@
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from rest_framework import status
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 from web_social_service.serializers import *
 from web_social_service.models import Patronage, Disabilities, Disabilities_Patronage
 from web_social_service.minio import add_pic, process_file_upload, delete_image
@@ -10,7 +10,7 @@ from rest_framework.decorators import api_view
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authtoken.models import Token
 from django.contrib.auth import logout
-
+from random import randint
 class PatronageList(APIView):
     model_class = Patronage
     serializer_class = GetPatronagesSerializer
@@ -172,12 +172,13 @@ class DisabilitiesSubmit(APIView):
     def put(self, request, id, format=None):
         request.data['data_compilation'] = datetime.now()
         request.data['status'] = 'formed'
-        disability = get_object_or_404(self.model_class, id=id, status = 'draft')
+        disability = get_object_or_404(self.model_class, id=id, status = 'draft', creator = request.user)
+        if not(disability.phone or disability.address):
+            return Response(status=status.HTTP_400_BAD_REQUEST, data='Заполните поля заявки')
         serializer = self.serializer_class(disability, data= request.data, partial=True)
+
         if serializer.is_valid():
-            disability_instance = serializer.save()
-            if request.user.username != disability_instance.creator.username:
-                return Response(status=status.HTTP_403_FORBIDDEN)
+            serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
@@ -197,6 +198,7 @@ class DisabilitiesComplete(APIView):
         
         if action == 'completed':
             request.data['status'] = 'completed'
+            request.data['date_dilivery'] = date.today() + timedelta(days = randint(1, 20))
         elif action == 'rejected':
             request.data['status'] = 'rejected'
             

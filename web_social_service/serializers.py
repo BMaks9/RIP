@@ -48,12 +48,11 @@ class GetPatronagesDetailSerializer(serializers.ModelSerializer):
 class GetDisabylitiesSerializer(serializers.ModelSerializer):
     creator = serializers.CharField(source = 'creator.username', read_only = True)
     moderator = serializers.SlugRelatedField(queryset=User.objects.all(), slug_field='username', required=False, allow_null=True)
-    
     class Meta:
         # Модель, которую мы сериализуем
         model = Disabilities
         # Поля, которые мы сериализуем
-        fields = ["id", "phone", "address", "status", "data_created", "data_compilation", "data_finished", "creator", "moderator"]
+        fields = ["id", "phone", "address", "status", "data_created", "data_compilation", "data_finished", 'date_dilivery',"creator", "moderator"]
         
 class GetDisabilities_Patronage_Serializer(serializers.ModelSerializer):
     class Meta:
@@ -79,4 +78,4 @@ class GetDisabilityDetail_Serializer(serializers.ModelSerializer):
         return serializer.data
     class Meta:
         model = Disabilities
-        fields = ['id', 'phone', 'address', 'status', 'data_created', 'data_compilation', 'data_finished','patronages']
+        fields = ['id', 'phone', 'address', 'status', 'data_created', 'data_compilation', 'data_finished', 'date_dilivery', 'patronages']
