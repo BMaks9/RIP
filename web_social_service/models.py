@@ -6,7 +6,7 @@ class Patronage(models.Model):
     title = models.CharField(max_length=30, null=False, unique=True)
     description = models.TextField(null=False)
     img = models.CharField(max_length=100, blank=True)
-    img_background = models.CharField(max_length=80, blank=True)
+    # img_background = models.CharField(max_length=80, blank=True)
     deleted = models.BooleanField(default=False)
     class Meta:
         managed = True

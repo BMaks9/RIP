@@ -4,19 +4,25 @@ from web_social_service.models import Disabilities_Patronage
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
+from collections import OrderedDict
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['username', 'password', 'email']
-        
-    def create(self, validated_data):
-        user = User.objects.create_user(
-            username=validated_data['username'],
-            email=validated_data['email'],
-            password=validated_data['password']
-        )
-        return user
+        fields = ['username', 'password', 'email', 'is_staff', 'is_active']
+    # def create(self, validated_data):
+    #     user = User.objects.create_user(
+    #         username=validated_data['username'],
+    #         email=validated_data['email'],
+    #         password=validated_data['password']
+    #     )
+    #     return user
+        # def get_fields(self):
+        #     new_fields = OrderedDict()
+        #     for name, field in super().get_fields().items():
+        #         field.required = False
+        #         new_fields[name] = field
+        #     return new_fields
     
 class UserUpdateSerializer(serializers.ModelSerializer):
     class Meta:
@@ -37,13 +43,19 @@ class GetPatronagesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Patronage
         # Поля, которые мы сериализуем
-        fields = ["id","title", "img", "img_background"]
-
+        fields = ["id","title", "img"]
+    # def get_fields(self):
+    #         new_fields = OrderedDict()
+    #         for name, field in super().get_fields().items():
+    #             field.required = False
+    #             new_fields[name] = field
+    #         return new_fields 
+        
 class GetPatronagesDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Patronage
         # Поля, которые мы сериализуем
-        fields = ["id","title", "description", "img", "img_background"]
+        fields = ["id","title", "description", "img"]
 
 class GetDisabylitiesSerializer(serializers.ModelSerializer):
     creator = serializers.CharField(source = 'creator.username', read_only = True)

@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'web_social_service',
     'rest_framework',
-    'rest_framework.authtoken'
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [
@@ -131,10 +131,14 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Настройки для аутентификации через токены
+# Настройки для аутентификации 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
     ],
 }
 AWS_STORAGE_BUCKET_NAME = 'social-system'
@@ -142,3 +146,8 @@ AWS_ACCESS_KEY_ID = 'minio'
 AWS_SECRET_ACCESS_KEY = 'minio124'
 AWS_S3_ENDPOINT_URL = 'localhost:9000'
 MINIO_USE_SSL = False
+
+SESSION_COOKIE_NAME = 'session_id'  # Имя cookie по умолчанию
+
+REDIS_HOST = '127.0.0.1'
+REDIS_PORT = 6379
